@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1>Регистрация</h1>
+        <p class="auth-subtitle">Создайте новый аккаунт</p>
+
+        <div id="error-message" class="alert alert-error" style="display: none;"></div>
+        <div id="success-message" class="alert alert-success" style="display: none;"></div>
+
+        <form id="register-form" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username *</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                    minlength="3"
+                    placeholder="Введите username"
+                >
+                <span class="form-hint">Минимум 3 символа, только буквы, цифры, _ и -</span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="Введите email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="first_name">Имя</label>
+                <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    placeholder="Введите имя"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Фамилия</label>
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    placeholder="Введите фамилию"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+77001234567"
+                >
+                <span class="form-hint">Формат: +7XXXXXXXXXX</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль *</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    minlength="8"
+                    placeholder="Введите пароль"
+                >
+                <span class="form-hint">Минимум 8 символов</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirm">Подтверждение пароля *</label>
+                <input
+                    type="password"
+                    id="password_confirm"
+                    name="password_confirm"
+                    required
+                    minlength="8"
+                    placeholder="Повторите пароль"
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="register-btn">
+                Зарегистрироваться
+            </button>
+        </form>
+
+        <p class="auth-footer">
+            Уже есть аккаунт? <a href="/login/">Войти</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/register.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hotel Booking{% endblock %}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a href="/">Hotel Booking</a>
+                </div>
+                <ul class="navbar-menu" id="navbar-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li id="nav-register"><a href="/register/">Регистрация</a></li>
+                    <li id="nav-login"><a href="/login/">Вход</a></li>
+                    <li id="nav-profile" style="display: none;"><a href="/profile/">Профиль</a></li>
+                    <li id="nav-logout" style="display: none;"><a href="#" onclick="logout()">Выход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Hotel Booking. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/utils/auth.js' %}"></script>
+    <script src="{% static 'js/api/api.js' %}"></script>
+    <script>
+        // Обновление навигации при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavbar();
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

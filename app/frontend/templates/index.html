@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Hotel Booking{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Добро пожаловать в Hotel Booking</h1>
+    <p class="hero-description">Система бронирования комнат в отеле</p>
+
+    <div class="hero-buttons">
+        <a href="/register/" class="btn btn-primary">Зарегистрироваться</a>
+        <a href="/login/" class="btn btn-secondary">Войти</a>
+    </div>
+</div>
+
+<div class="features">
+    <h2>Возможности системы</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>📋 Просмотр комнат</h3>
+            <p>Просматривайте доступные комнаты без регистрации</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔍 Фильтрация</h3>
+            <p>Фильтруйте комнаты по цене и количеству мест</p>
+        </div>
+        <div class="feature-card">
+            <h3>📅 Бронирование</h3>
+            <p>Бронируйте комнаты на нужные даты</p>
+        </div>
+        <div class="feature-card">
+            <h3>👤 Профиль</h3>
+            <p>Управляйте своими бронированиями</p>
+        </div>
+    </div>
+</div>
+
+<div class="api-info">
+    <h2>API Документация</h2>
+    <p>Для разработчиков доступна полная API документация:</p>
+    <div class="api-links">
+        <a href="/api/docs/" class="btn btn-info" target="_blank">Swagger UI</a>
+        <a href="/api/redoc/" class="btn btn-info" target="_blank">ReDoc</a>
+    </div>
+</div>
+{% endblock %}

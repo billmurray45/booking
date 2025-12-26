@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вход - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1>Вход</h1>
+        <p class="auth-subtitle">Войдите в свой аккаунт</p>
+
+        <div id="error-message" class="alert alert-error" style="display: none;"></div>
+        <div id="success-message" class="alert alert-success" style="display: none;"></div>
+
+        <form id="login-form" class="auth-form">
+            <div class="form-group">
+                <label for="username">Username или Email *</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                    placeholder="Введите username или email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль *</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    placeholder="Введите пароль"
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+                Войти
+            </button>
+        </form>
+
+        <p class="auth-footer">
+            Нет аккаунта? <a href="/register/">Зарегистрироваться</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/login.js' %}"></script>
+{% endblock %}

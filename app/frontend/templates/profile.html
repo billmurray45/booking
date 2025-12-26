@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Профиль - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Профиль пользователя</h1>
+
+    <div id="error-message" class="alert alert-error" style="display: none;"></div>
+    <div id="success-message" class="alert alert-success" style="display: none;"></div>
+
+    <!-- Информация о пользователе -->
+    <div class="profile-section">
+        <h2>Информация</h2>
+        <div class="profile-info" id="profile-info">
+            <p><strong>Username:</strong> <span id="display-username">-</span></p>
+            <p><strong>Email:</strong> <span id="display-email">-</span></p>
+            <p><strong>Имя:</strong> <span id="display-first-name">-</span></p>
+            <p><strong>Фамилия:</strong> <span id="display-last-name">-</span></p>
+            <p><strong>Телефон:</strong> <span id="display-phone">-</span></p>
+            <p><strong>Дата регистрации:</strong> <span id="display-date-joined">-</span></p>
+        </div>
+        <button class="btn btn-secondary" id="edit-profile-btn">Редактировать профиль</button>
+    </div>
+
+    <!-- Форма редактирования профиля -->
+    <div class="profile-section" id="edit-profile-section" style="display: none;">
+        <h2>Редактирование профиля</h2>
+        <form id="edit-profile-form" class="auth-form">
+            <div class="form-group">
+                <label for="edit-email">Email *</label>
+                <input
+                    type="email"
+                    id="edit-email"
+                    name="email"
+                    required
+                    placeholder="Введите email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="edit-first-name">Имя</label>
+                <input
+                    type="text"
+                    id="edit-first-name"
+                    name="first_name"
+                    placeholder="Введите имя"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="edit-last-name">Фамилия</label>
+                <input
+                    type="text"
+                    id="edit-last-name"
+                    name="last_name"
+                    placeholder="Введите фамилию"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="edit-phone">Телефон</label>
+                <input
+                    type="tel"
+                    id="edit-phone"
+                    name="phone"
+                    placeholder="+77001234567"
+                >
+                <span class="form-hint">Формат: +7XXXXXXXXXX</span>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="save-profile-btn">Сохранить</button>
+                <button type="button" class="btn btn-secondary" id="cancel-edit-btn">Отмена</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Форма смены пароля -->
+    <div class="profile-section">
+        <h2>Смена пароля</h2>
+        <button class="btn btn-secondary" id="change-password-btn">Изменить пароль</button>
+
+        <form id="change-password-form" class="auth-form" style="display: none;">
+            <div class="form-group">
+                <label for="old-password">Текущий пароль *</label>
+                <input
+                    type="password"
+                    id="old-password"
+                    name="old_password"
+                    required
+                    placeholder="Введите текущий пароль"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="new-password">Новый пароль *</label>
+                <input
+                    type="password"
+                    id="new-password"
+                    name="new_password"
+                    required
+                    minlength="8"
+                    placeholder="Введите новый пароль"
+                >
+                <span class="form-hint">Минимум 8 символов</span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Подтверждение пароля *</label>
+                <input
+                    type="password"
+                    id="confirm-password"
+                    name="confirm_password"
+                    required
+                    minlength="8"
+                    placeholder="Повторите новый пароль"
+                >
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="save-password-btn">Сохранить пароль</button>
+                <button type="button" class="btn btn-secondary" id="cancel-password-btn">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/profile.js' %}"></script>
+{% endblock %}
