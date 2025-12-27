@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои бронирования - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/bookings.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="bookings-page">
+    <h1 class="page-title">Мои бронирования</h1>
+
+    <!-- Фильтры -->
+    <div class="bookings-filters">
+        <div class="filter-group">
+            <label for="status-filter" class="filter-label">Статус:</label>
+            <select id="status-filter" class="filter-select">
+                <option value="">Все бронирования</option>
+                <option value="active">Активные</option>
+                <option value="cancelled">Отмененные</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="time-filter" class="filter-label">Период:</label>
+            <select id="time-filter" class="filter-select">
+                <option value="">Все</option>
+                <option value="current">Текущие</option>
+                <option value="upcoming">Будущие</option>
+                <option value="past">Прошедшие</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="sort-filter" class="filter-label">Сортировка:</label>
+            <select id="sort-filter" class="filter-select">
+                <option value="-created_at">Сначала новые</option>
+                <option value="created_at">Сначала старые</option>
+                <option value="check_in">По дате заезда</option>
+                <option value="-check_in">По дате заезда (убыв.)</option>
+            </select>
+        </div>
+
+        <button id="apply-filters" class="btn btn-primary">Применить</button>
+        <button id="reset-filters" class="btn btn-secondary">Сбросить</button>
+    </div>
+
+    <!-- Сообщения -->
+    <div id="loading-message" class="message-box message-info" style="display: none;">
+        Загрузка бронирований...
+    </div>
+
+    <div id="error-message" class="message-box message-error" style="display: none;"></div>
+
+    <div id="success-message" class="message-box message-success" style="display: none;"></div>
+
+    <div id="empty-state" class="empty-state" style="display: none;">
+        <p>У вас пока нет бронирований.</p>
+        <a href="/rooms/" class="btn btn-primary">Посмотреть доступные комнаты</a>
+    </div>
+
+    <!-- Список бронирований -->
+    <div id="bookings-list" class="bookings-list"></div>
+</div>
+
+<!-- Модальное окно для редактирования -->
+<div id="edit-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Изменить даты бронирования</h2>
+            <button class="modal-close" onclick="closeEditModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="edit-booking-form">
+                <input type="hidden" id="edit-booking-id">
+
+                <div class="form-group">
+                    <label for="edit-check-in">Дата заезда:</label>
+                    <input type="date" id="edit-check-in" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-check-out">Дата выезда:</label>
+                    <input type="date" id="edit-check-out" class="form-input" required>
+                </div>
+
+                <div id="edit-error" class="message-box message-error" style="display: none;"></div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/bookings.js' %}"></script>
+{% endblock %}

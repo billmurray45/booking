@@ -116,5 +116,50 @@ const API = {
             method: 'POST',
             body: JSON.stringify(passwordData)
         });
+    },
+
+    // Rooms
+    getRooms: async (params) => {
+        const queryString = params ? `?${new URLSearchParams(params).toString()}` : '';
+        return await fetch(`${API_BASE_URL}/rooms/${queryString}`);
+    },
+
+    getRoom: async (id) => {
+        return await fetch(`${API_BASE_URL}/rooms/${id}/`);
+    },
+
+    getAvailableRooms: async (checkIn, checkOut) => {
+        const params = new URLSearchParams({ check_in: checkIn, check_out: checkOut });
+        return await fetch(`${API_BASE_URL}/rooms/available/?${params.toString()}`);
+    },
+
+    // Bookings
+    getBookings: async (params) => {
+        const queryString = params ? `?${new URLSearchParams(params).toString()}` : '';
+        return await apiRequest(`${API_BASE_URL}/bookings/${queryString}`);
+    },
+
+    getBooking: async (id) => {
+        return await apiRequest(`${API_BASE_URL}/bookings/${id}/`);
+    },
+
+    createBooking: async (bookingData) => {
+        return await apiRequest(`${API_BASE_URL}/bookings/create/`, {
+            method: 'POST',
+            body: JSON.stringify(bookingData)
+        });
+    },
+
+    updateBooking: async (id, bookingData) => {
+        return await apiRequest(`${API_BASE_URL}/bookings/${id}/update/`, {
+            method: 'PATCH',
+            body: JSON.stringify(bookingData)
+        });
+    },
+
+    cancelBooking: async (id) => {
+        return await apiRequest(`${API_BASE_URL}/bookings/${id}/cancel/`, {
+            method: 'DELETE'
+        });
     }
 };

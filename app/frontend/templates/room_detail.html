@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Комната - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="room-detail-page">
+    <!-- Кнопка назад -->
+    <a href="/rooms/" class="back-link">&larr; Вернуться к списку комнат</a>
+
+    <!-- Сообщения -->
+    <div id="error-message" class="alert alert-error" style="display: none;"></div>
+    <div id="success-message" class="alert alert-success" style="display: none;"></div>
+    <div id="loading-message" class="loading-spinner" style="display: none;">
+        <p>Загрузка информации о комнате...</p>
+    </div>
+
+    <!-- Детальная информация о комнате -->
+    <div id="room-detail-content" style="display: none;">
+        <div class="room-detail-container">
+            <!-- Изображение -->
+            <div class="room-image-section">
+                <img id="room-image" src="" alt="Комната" class="room-detail-image">
+            </div>
+
+            <!-- Информация -->
+            <div class="room-info-section">
+                <h1 id="room-title">Комната</h1>
+
+                <div class="room-details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Номер комнаты:</span>
+                        <span class="detail-value" id="room-number">-</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Цена за ночь:</span>
+                        <span class="detail-value price" id="room-price">-</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Вместимость:</span>
+                        <span class="detail-value" id="room-capacity">-</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Статус:</span>
+                        <span class="detail-value" id="room-status">-</span>
+                    </div>
+                </div>
+
+                <div class="room-description">
+                    <h3>Описание</h3>
+                    <p id="room-description">-</p>
+                </div>
+
+                <!-- Форма бронирования -->
+                <div class="booking-form-section" id="booking-form-section" style="display: none;">
+                    <h3>Забронировать комнату</h3>
+                    <form id="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="check-in">Дата заезда:</label>
+                                <input type="date" id="check-in" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="check-out">Дата выезда:</label>
+                                <input type="date" id="check-out" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div id="booking-info" class="booking-info" style="display: none;">
+                            <div class="info-item">
+                                <span class="info-label">Количество ночей:</span>
+                                <span class="info-value" id="nights-count">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Общая стоимость:</span>
+                                <span class="info-value price-highlight" id="total-price">-</span>
+                            </div>
+                        </div>
+
+                        <div id="booking-error" class="alert alert-error" style="display: none;"></div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large" id="submit-booking-btn">
+                                Забронировать
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="login-prompt" id="login-prompt" style="display: none;">
+                        <p>Для бронирования необходимо <a href="/login/">войти в систему</a> или <a href="/register/">зарегистрироваться</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/room-detail.js' %}"></script>
+{% endblock %}

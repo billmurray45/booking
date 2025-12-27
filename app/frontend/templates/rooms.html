@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Комнаты - Hotel Booking{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="rooms-page">
+    <h1>Наши комнаты</h1>
+
+    <!-- Фильтры -->
+    <div class="filters-section">
+        <div class="filters-card">
+            <h3>Фильтры</h3>
+            <div class="filters-form">
+                <div class="filter-group">
+                    <label for="min-price">Мин. цена:</label>
+                    <input type="number" id="min-price" placeholder="От" min="0">
+                </div>
+
+                <div class="filter-group">
+                    <label for="max-price">Макс. цена:</label>
+                    <input type="number" id="max-price" placeholder="До" min="0">
+                </div>
+
+                <div class="filter-group">
+                    <label for="capacity">Вместимость:</label>
+                    <select id="capacity">
+                        <option value="">Любая</option>
+                        <option value="1">1 человек</option>
+                        <option value="2">2 человека</option>
+                        <option value="3">3 человека</option>
+                        <option value="4">4 человека</option>
+                        <option value="5">5+ человек</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort">Сортировка:</label>
+                    <select id="sort">
+                        <option value="room_number">По номеру</option>
+                        <option value="price_per_night">Цена: дешевле</option>
+                        <option value="-price_per_night">Цена: дороже</option>
+                        <option value="capacity">Вместимость: меньше</option>
+                        <option value="-capacity">Вместимость: больше</option>
+                    </select>
+                </div>
+
+                <div class="filter-buttons">
+                    <button class="btn btn-primary" id="apply-filters">Применить</button>
+                    <button class="btn btn-secondary" id="reset-filters">Сбросить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сообщения -->
+    <div id="error-message" class="alert alert-error" style="display: none;"></div>
+    <div id="loading-message" class="loading-spinner" style="display: none;">
+        <p>Загрузка комнат...</p>
+    </div>
+
+    <!-- Список комнат -->
+    <div class="rooms-grid" id="rooms-grid">
+        <!-- Карточки комнат будут добавлены через JavaScript -->
+    </div>
+
+    <!-- Пустое состояние -->
+    <div id="empty-state" class="empty-state" style="display: none;">
+        <p>Комнаты не найдены</p>
+        <p class="empty-state-hint">Попробуйте изменить параметры фильтрации</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/rooms.js' %}"></script>
+{% endblock %}

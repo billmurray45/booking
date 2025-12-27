@@ -28,3 +28,24 @@ class ProfileView(TemplateView):
     Страница профиля пользователя.
     """
     template_name = 'profile.html'
+
+
+class RoomsView(TemplateView):
+    """
+    Страница списка комнат.
+    """
+    template_name = 'rooms.html'
+
+
+class RoomDetailView(TemplateView):
+    """
+    Страница детальной информации о комнате.
+    """
+    template_name = 'room_detail.html'
+
+
+class BookingsView(TemplateView):
+    """
+    Страница списка бронирований пользователя.
+    """
+    template_name = 'bookings.html'

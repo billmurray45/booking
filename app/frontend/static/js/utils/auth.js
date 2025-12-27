@@ -32,17 +32,20 @@ function updateNavbar() {
 
     const navRegister = document.getElementById('nav-register');
     const navLogin = document.getElementById('nav-login');
+    const navBookings = document.getElementById('nav-bookings');
     const navProfile = document.getElementById('nav-profile');
     const navLogout = document.getElementById('nav-logout');
 
     if (isAuth) {
         if (navRegister) navRegister.style.display = 'none';
         if (navLogin) navLogin.style.display = 'none';
+        if (navBookings) navBookings.style.display = 'block';
         if (navProfile) navProfile.style.display = 'block';
         if (navLogout) navLogout.style.display = 'block';
     } else {
         if (navRegister) navRegister.style.display = 'block';
         if (navLogin) navLogin.style.display = 'block';
+        if (navBookings) navBookings.style.display = 'none';
         if (navProfile) navProfile.style.display = 'none';
         if (navLogout) navLogout.style.display = 'none';
     }
