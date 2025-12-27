@@ -1,3 +1,4 @@
+import logging
 from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,6 +13,8 @@ from .serializers import (
     UserUpdateSerializer,
     ChangePasswordSerializer
 )
+
+logger = logging.getLogger(__name__)
 
 
 @extend_schema(tags=['Authentication'])
@@ -30,6 +33,8 @@ class UserRegistrationView(generics.CreateAPIView):
 
         # Генерация JWT токенов для нового пользователя
         refresh = RefreshToken.for_user(user)
+
+        logger.info(f'New user registered: {user.username} (ID: {user.id}, Email: {user.email})')
 
         return Response({
             'user': UserSerializer(user).data,
@@ -80,6 +85,20 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
             return UserUpdateSerializer
         return UserSerializer
 
+    def update(self, request, *args, **kwargs):
+        """
+        Обновление профиля с логированием.
+        """
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        logger.info(f'User profile updated: {instance.username} (ID: {instance.id})')
+
+        return Response(UserSerializer(instance).data)
+
 
 @extend_schema(tags=['User Profile'])
 class ChangePasswordView(APIView):
@@ -103,10 +122,12 @@ class ChangePasswordView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            logger.info(f'Password changed for user: {request.user.username} (ID: {request.user.id})')
             return Response({
                 'message': 'Пароль успешно изменен.'
             }, status=status.HTTP_200_OK)
 
+        logger.warning(f'Failed password change attempt for user: {request.user.username} (ID: {request.user.id})')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -137,6 +158,7 @@ class LogoutView(APIView):
         try:
             refresh_token = request.data.get("refresh")
             if not refresh_token:
+                logger.warning(f'Logout attempt without refresh token from user: {request.user.username}')
                 return Response(
                     {"error": "Refresh token обязателен."},
                     status=status.HTTP_400_BAD_REQUEST
@@ -145,11 +167,14 @@ class LogoutView(APIView):
             token = RefreshToken(refresh_token)
             token.blacklist()
 
+            logger.info(f'User logged out: {request.user.username} (ID: {request.user.id})')
+
             return Response(
                 {"message": "Успешный выход из системы."},
                 status=status.HTTP_205_RESET_CONTENT
             )
         except Exception as e:
+            logger.error(f'Logout error for user {request.user.username}: {str(e)}')
             return Response(
                 {"error": "Неверный токен."},
                 status=status.HTTP_400_BAD_REQUEST
